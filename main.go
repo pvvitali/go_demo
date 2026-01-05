@@ -11,9 +11,9 @@ func main() {
 	fmt.Println("Hello!")
 
 	user1 := account.Account{
-		Login:     "Peter",
+		Login:     "Vasia",
 		Password:  "1234",
-		Url:       "http://peter.com",
+		Url:       "http://vasia.com",
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
