@@ -1,1 +1,1 @@
-{"login":"Vasia","password":"1234","url":"http://vasia.com","createdAt":"2026-01-05T20:18:32.9125911+02:00","updatedAt":"2026-01-05T20:18:32.9125911+02:00"}
+{"login":"Vasia","password":"1234","url":"http://vasia.com","createdAt":"2026-01-07T13:50:28.43608+02:00","updatedAt":"2026-01-07T13:50:28.43608+02:00"}
