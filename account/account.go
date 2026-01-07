@@ -1,10 +1,15 @@
 package account
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
+	"math/rand/v2"
+	"net/url"
 	"time"
 )
+
+var chars []rune = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890#$%")
+var lenChars int = len(chars)
 
 type Account struct {
 	Login     string    `json:"login"`
@@ -14,11 +19,42 @@ type Account struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
-func (acc *Account) ToByte() ([]byte, error) {
-	file, err := json.Marshal(acc)
-	if err != nil {
-		fmt.Println(err)
+func NewAccount() (*Account, error) {
+	var login_data string
+	var password_data string
+	var url_data string
+	fmt.Print("Enter login: ")
+	fmt.Scanln(&login_data)
+	if login_data == "" {
+		err := errors.New("Empty login")
 		return nil, err
 	}
-	return file, nil
+	fmt.Print("Enter password: ")
+	fmt.Scanln(&password_data)
+	if password_data == "" {
+		password_data = generatePassword(12)
+	}
+	fmt.Print("Enter url: ")
+	fmt.Scanln(&url_data)
+	_, err := url.ParseRequestURI(url_data)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Account{
+		Login:     login_data,
+		Password:  password_data,
+		Url:       url_data,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}, nil
+}
+
+func generatePassword(countChars int) string {
+	var mas = make([]rune, 0, 20)
+	for i := 0; i < countChars; i++ {
+		numRand := rand.IntN(lenChars)
+		mas = append(mas, chars[numRand])
+	}
+	return string(mas)
 }

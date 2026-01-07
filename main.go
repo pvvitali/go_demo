@@ -4,10 +4,12 @@ import (
 	"demo/password/account"
 	"demo/password/files"
 	"fmt"
-	"time"
 )
 
+var vaultNew = account.NewVault()
+
 func main() {
+	vaultNew.ReadVault()
 
 	var variant int = 0
 menu:
@@ -36,25 +38,26 @@ menu:
 
 func createAccount() {
 
-	user1 := account.Account{
-		Login:     "Vasia",
-		Password:  "1234",
-		Url:       "http://vasia.com",
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-	}
-
-	file, err := user1.ToByte()
+	user1, err := account.NewAccount()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	files.WriteFile(file, "log.txt")
+
+	vaultNew.AddAccount(user1)
+
+	file, err := vaultNew.ToByte()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	files.WriteFile(file, "log.json")
 
 }
 
 func searchAccount() {
-
+	vaultNew.ReadVault()
+	vaultNew.PrintVault()
 }
 
 func deleteAccount() {
