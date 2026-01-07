@@ -20,7 +20,7 @@ menu:
 		fmt.Println("3 - Delete account")
 		fmt.Println("4 - Exit")
 
-		fmt.Scan(&variant)
+		fmt.Scanln(&variant)
 
 		switch variant {
 		case 1:
