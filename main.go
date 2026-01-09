@@ -56,8 +56,11 @@ func createAccount() {
 }
 
 func searchAccount() {
+	searchString, _ := account.PromtAccount()
 	vaultNew.ReadVault()
-	vaultNew.PrintVault()
+
+	vaultNew.FindAccount(searchString)
+	//vaultNew.PrintVault()
 }
 
 func deleteAccount() {

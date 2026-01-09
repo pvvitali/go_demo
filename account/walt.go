@@ -4,6 +4,7 @@ import (
 	"demo/password/files"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -49,4 +50,16 @@ func (vault *Vault) ReadVault() error {
 
 func (vault *Vault) PrintVault() {
 	fmt.Println(*vault)
+}
+
+func (vault *Vault) FindAccount(strFind string) {
+	var count uint
+	strFind = strings.ToLower(strFind)
+	for _, value := range vault.Accounts {
+		if strings.Contains(value.Url, strFind) {
+			fmt.Println(value.Url, "|", value.Login, "|", value.Password)
+			count++
+		}
+	}
+	fmt.Print("Find: ", count, " accounts\n\n")
 }

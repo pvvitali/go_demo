@@ -58,3 +58,12 @@ func generatePassword(countChars int) string {
 	}
 	return string(mas)
 }
+
+func PromtAccount() (string, error) {
+	var searchStr string
+	fmt.Print("Enter search account (Example: http://user.com): ")
+	fmt.Scanln(&searchStr)
+	fmt.Print("Searching: ", searchStr, "\n\n")
+	return searchStr, nil
+
+}
