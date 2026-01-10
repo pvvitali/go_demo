@@ -7,9 +7,10 @@ import (
 )
 
 var vaultNew = account.NewVault()
+var db = files.NewJsonDb("log.json")
 
 func main() {
-	vaultNew.ReadVault()
+	vaultNew.ReadVault(db)
 
 	var variant int = 0
 menu:
@@ -51,18 +52,28 @@ func createAccount() {
 		fmt.Println(err)
 		return
 	}
-	files.WriteFile(file, "log.json")
+	db.Write(file)
 
 }
 
 func searchAccount() {
-	searchString, _ := account.PromtAccount()
-	vaultNew.ReadVault()
+	searchString := account.PromtAccount()
+	vaultNew.ReadVault(db)
 
 	vaultNew.FindAccount(searchString)
 	//vaultNew.PrintVault()
 }
 
 func deleteAccount() {
+	urlString := account.PromtDeleteAccount()
+	vaultNew.ReadVault(db)
 
+	vaultNew.DeleteAccount(urlString)
+
+	file, err := vaultNew.ToByte()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	db.Write(file)
 }

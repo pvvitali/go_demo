@@ -59,11 +59,20 @@ func generatePassword(countChars int) string {
 	return string(mas)
 }
 
-func PromtAccount() (string, error) {
+func PromtAccount() string {
 	var searchStr string
 	fmt.Print("Enter search account (Example: http://user.com): ")
 	fmt.Scanln(&searchStr)
 	fmt.Print("Searching: ", searchStr, "\n\n")
-	return searchStr, nil
+	return searchStr
+
+}
+
+func PromtDeleteAccount() string {
+	var urlString string
+	fmt.Print("Enter Url for delete (Example: http://user.com): ")
+	fmt.Scanln(&urlString)
+	fmt.Print("Deleting: ", urlString, "\n\n")
+	return urlString
 
 }

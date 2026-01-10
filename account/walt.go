@@ -34,8 +34,8 @@ func (vault *Vault) ToByte() ([]byte, error) {
 	return file, nil
 }
 
-func (vault *Vault) ReadVault() error {
-	file, err := files.ReadFile()
+func (vault *Vault) ReadVault(db *files.JsonDb) error {
+	file, err := db.Read()
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -62,4 +62,20 @@ func (vault *Vault) FindAccount(strFind string) {
 		}
 	}
 	fmt.Print("Find: ", count, " accounts\n\n")
+}
+
+func (vault *Vault) DeleteAccount(urlString string) {
+	var count int
+	var masAccounts []Account
+	urlString = strings.ToLower(urlString)
+	for _, value := range vault.Accounts {
+		if value.Url == urlString {
+			fmt.Println("Delete: ", value.Url, "|", value.Login, "|", value.Password)
+			count++
+		} else {
+			masAccounts = append(masAccounts, value)
+		}
+	}
+	vault.Accounts = masAccounts
+	fmt.Print("Delete: ", count, " accounts\n\n")
 }
